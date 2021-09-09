@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "liquid_name": "Buffer",
+    "transfer_vol": "600",
+    "eight_tips": "Yes",
+    "change_tips": "No",
+    "filter_tips": "Yes"
+  },
+  {
+    "id": 2,
+    "liquid_name": "Mastermix",
+    "transfer_vol": "5",
+    "eight_tips": "No",
+    "change_tips": "Yes",
+    "filter_tips": "No"
+  }
+]
