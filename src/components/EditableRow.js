@@ -5,7 +5,6 @@ const EditableRow = ({
   handleEditFormChange,
   handleCancelClick,
 }) => {
-  console.log('in editable row')
   return (
     <tr>
       <td>
@@ -29,34 +28,25 @@ const EditableRow = ({
         ></input>
       </td>
       <td>
-        <input
-          type="text"
-          required="required"
-          placeholder="Can use 8 tips/transfer?"
-          name="eight_tips"
-          value={editFormData.eight_tips}
-          onChange={handleEditFormChange}
-        ></input>
+      <select name="eight_tips" id="eight_tips" onChange={handleEditFormChange}>
+        <option value="" disabled selected>Can use 8 tips/transfer?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+       </select>
       </td>
       <td>
-        <input
-          type="text"
-          required="required"
-          placeholder="Change Tips?"
-          name="change_tips"
-          value={editFormData.change_tips}
-          onChange={handleEditFormChange}
-        ></input>
+      <select name="change_tips" id="change_tips" onChange={handleEditFormChange}>
+        <option value="" disabled selected>Change Tips?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+       </select>
       </td>
       <td>
-        <input
-          type="text"
-          required="required"
-          placeholder="Filter Tips?"
-          name="filter_tips"
-          value={editFormData.filter_tips}
-          onChange={handleEditFormChange}
-        ></input>
+      <select name="filter_tips" id="filter_tips" onChange={handleEditFormChange}>
+        <option value="" disabled selected>Filter Tips?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+       </select>
       </td>
       <td>
         <button type="submit">Save</button>

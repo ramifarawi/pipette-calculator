@@ -19,10 +19,11 @@ const App = () => {
 
   function protocol_pipettes(){
     var pipette_count = {'P1000 Single-Channel': p1000_ctr, 'P300 Single-Channel':p300_ctr, 'P300 Multi-Channel':m300_ctr, 'P20 Single-Channel':p20_ctr, 'P20 Multi-Channel':m20_ctr}
-    console.log(pipette_count)
+
+
     if (pipette_count['P20 Single-Channel'] > 0) {
       var max_pip1 = 'P20 Single-Channel'
-    } else if (pipette_count['P20 Multi-Channel']){
+    } else if (pipette_count['P20 Multi-Channel'] > 0){
       var max_pip1 = 'P20 Multi-Channel'
     } else {
       var max_pip1 = Object.keys(pipette_count).reduce(
@@ -30,17 +31,37 @@ const App = () => {
     }
     let pip1 = max_pip1;
     delete pipette_count[pip1];
-    if (pipette_count['P20 Single-Channel'] > 0){
-      var max_pip2 = 'P20 Single-Channel'
-    } else if (pipette_count['P20 Multi-Channel']){
-      var max_pip2 = 'P20 Multi-Channel'
-    } else {
-      var max_pip2 = Object.keys(pipette_count).reduce(
-                      function(a, b){ return pipette_count[a] > pipette_count[b] ? a : b });
+
+    var remaining_pipettes = 0
+    for (let i in pipette_count) {
+      if (pipette_count[i] > 0){
+        remaining_pipettes += 1
+      }
     }
+
+    if (remaining_pipettes == 0){
+          var max_pip2 = ''
+        }else{
+          if (pipette_count['P20 Single-Channel'] > 0){
+            var max_pip2 = 'P20 Single-Channel'
+          } else if (pipette_count['P20 Multi-Channel'] > 0){
+            var max_pip2 = 'P20 Multi-Channel'
+          } else {
+            var max_pip2 = Object.keys(pipette_count).reduce(
+                            function(a, b){ return pipette_count[a] > pipette_count[b] ? a : b });
+          }
+        }
+
     let pip2 = max_pip2
-    let pipette_rec = [pip1, ', and ', pip2, ' pipette(s)']
-    return pipette_rec;
+    if (pip2 == ''){
+      let pipette_rec = [pip1, ' pipette']
+      return pipette_rec;
+    }else{
+      let pipette_rec = [pip1, ', and ', pip2, ' pipettes']
+      return pipette_rec;
+    }
+
+
   }
 
 
@@ -221,27 +242,22 @@ const App = () => {
             placeholder="Transfer Vol (ul)"
             onChange={handleAddFormChange}
           />
-          <input
-            type="text"
-            name="eight_tips"
-            required="required"
-            placeholder="Can use 8 tips/transfer?"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="change_tips"
-            required="required"
-            placeholder="Change tips?"
-            onChange={handleAddFormChange}
-          />
-          <input
-            type="text"
-            name="filter_tips"
-            required="required"
-            placeholder="Filter Tips?"
-            onChange={handleAddFormChange}
-          />
+          <select name="eight_tips" id="eight_tips" onChange={handleAddFormChange}>
+            <option value="" disabled selected>Can use 8 tips/transfer?</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+           </select>
+          <select name="change_tips" id="change_tips" onChange={handleAddFormChange}>
+            <option value="" disabled selected>Change Tips?</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+           </select>
+           <select name="filter_tips" id="filter_tips" onChange={handleAddFormChange}>
+             <option value="" disabled selected>Filter Tips?</option>
+             <option value="Yes">Yes</option>
+             <option value="No">No</option>
+            </select>
+
           <button type="submit">Add</button>
         </form>
 
